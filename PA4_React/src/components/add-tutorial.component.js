@@ -4,25 +4,27 @@ import TutorialDataService from "../services/tutorial.service";
 export default class AddTutorial extends Component {
   constructor(props) {
     super(props);
-    this.onChangeTitle = this.onChangeTitle.bind(this);
     this.onChangeDescription = this.onChangeDescription.bind(this);
+    this.onChangeName = this.onChangeName.bind(this);
+    this.onChangePrice = this.onChangePrice.bind(this);
+    this.onChangeBrand = this.onChangeBrand.bind(this);
+    this.onChangeColors = this.onChangeColors.bind(this);
+    this.onChangeImagePath = this.onChangeImagePath.bind(this);
     this.saveTutorial = this.saveTutorial.bind(this);
     this.newTutorial = this.newTutorial.bind(this);
 
     this.state = {
       id: null,
-      title: "",
-      description: "", 
+      productName: "",
+      description: "",
+      productColors: "",
+      productPrice: 0, 
+      productBrand: "",
+      productImagePath: "",
       published: false,
 
       submitted: false
     };
-  }
-
-  onChangeTitle(e) {
-    this.setState({
-      title: e.target.value
-    });
   }
 
   onChangeDescription(e) {
@@ -31,18 +33,57 @@ export default class AddTutorial extends Component {
     });
   }
 
+  onChangeName(e) {
+    this.setState({
+      productName: e.target.value
+    });
+  }
+
+  onChangeColors(e) {
+    this.setState({
+      productColors: e.target.value
+    });
+  }
+
+  onChangePrice(e) {
+    this.setState({
+      productPrice: e.target.value
+    });
+  }
+
+  onChangeBrand(e) {
+    this.setState({
+      productBrand: e.target.value
+    });
+  }
+
+  onChangeImagePath(e) {
+    this.setState({
+      productImagePath: e.target.value
+    });
+  }
+
   saveTutorial() {
     var data = {
-      title: this.state.title,
-      description: this.state.description
+      productName: this.state.productName,
+      description: this.state.description,
+      productColors: this.state.productColors,
+      productPrice: this.state.productPrice,
+      productBrand: this.state.productBrand,
+      productImagePath: this.state.productImagePath,
+      published: this.state.published
     };
 
     TutorialDataService.create(data)
       .then(response => {
         this.setState({
           id: response.data.id,
-          title: response.data.title,
+          productName: response.data.productName,
           description: response.data.description,
+          productColors: response.data.productColors,
+          productPrice: response.data.productPrice,
+          productBrand: response.data.productBrand,
+          productImagePath: response.data.productImagePath,
           published: response.data.published,
 
           submitted: true
@@ -78,15 +119,15 @@ export default class AddTutorial extends Component {
         ) : (
           <div>
             <div className="form-group">
-              <label htmlFor="title">Title</label>
+              <label htmlFor="name">Product Name</label>
               <input
                 type="text"
                 className="form-control"
-                id="title"
+                id="name"
                 required
-                value={this.state.title}
-                onChange={this.onChangeTitle}
-                name="title"
+                value={this.state.name}
+                onChange={this.onChangeName}
+                name="name"
               />
             </div>
 
@@ -100,6 +141,58 @@ export default class AddTutorial extends Component {
                 value={this.state.description}
                 onChange={this.onChangeDescription}
                 name="description"
+              />
+            </div>
+
+            <div className="form-group">
+              <label htmlFor="price"> Price</label>
+              <input
+                type="text"
+                className="form-control"
+                id="price"
+                required
+                value={this.state.productPrice}
+                onChange={this.onChangePrice}
+                name="price"
+              />
+            </div>
+
+            <div className="form-group">
+              <label htmlFor="colors"> Colors</label>
+              <input
+                type="text"
+                className="form-control"
+                id="colors"
+                required
+                value={this.state.productColors}
+                onChange={this.onChangeColors}
+                name="colors"
+              />
+            </div>
+
+            <div className="form-group">
+              <label htmlFor="brand"> Brand</label>
+              <input
+                type="text"
+                className="form-control"
+                id="brand"
+                required
+                value={this.state.productBrand}
+                onChange={this.onChangeBrand}
+                name="brand"
+              />
+            </div>
+
+            <div className="form-group">
+              <label htmlFor="imagepath"> ImagePath</label>
+              <input
+                type="text"
+                className="form-control"
+                id="imagepath"
+                required
+                value={this.state.productImagePath}
+                onChange={this.onChangeImagePath}
+                name="imagepath"
               />
             </div>
 
