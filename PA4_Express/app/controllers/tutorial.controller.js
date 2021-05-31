@@ -25,7 +25,7 @@ exports.create = (req, res) => {
 
   // Save Tutorial in the database
   Tutorial.create(tutorial)
-  
+
     .then(data => {
       res.send(data);
     })
@@ -40,7 +40,7 @@ exports.create = (req, res) => {
 // Retrieve all Tutorials from the database.
 exports.findAll = (req, res) => {
   const name = req.query.productName;
-  var condition = name ? { product_name: { [Op.like]: `%${name}%` } } : null;
+  var condition = name ? { productName: { [Op.like]: `%${name}%` } } : null;
 
   Tutorial.findAll({ where: condition })
     .then(data => {

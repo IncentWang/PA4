@@ -5,18 +5,18 @@ import { Link } from "react-router-dom";
 export default class TutorialsList extends Component {
   constructor(props) {
     super(props);
-    this.onChangeSearchTitle = this.onChangeSearchTitle.bind(this);
+    this.onChangeSearchProductName = this.onChangeSearchProductName.bind(this);
     this.retrieveTutorials = this.retrieveTutorials.bind(this);
     this.refreshList = this.refreshList.bind(this);
     this.setActiveTutorial = this.setActiveTutorial.bind(this);
     this.removeAllTutorials = this.removeAllTutorials.bind(this);
-    this.searchTitle = this.searchTitle.bind(this);
+    this.searchProductName = this.searchProductName.bind(this);
 
     this.state = {
       tutorials: [],
       currentTutorial: null,
       currentIndex: -1,
-      searchTitle: ""
+      searchProductName: ""
     };
   }
 
@@ -24,11 +24,11 @@ export default class TutorialsList extends Component {
     this.retrieveTutorials();
   }
 
-  onChangeSearchTitle(e) {
-    const searchTitle = e.target.value;
+  onChangeSearchProductName(e) {
+    const searchProductName = e.target.value;
 
     this.setState({
-      searchTitle: searchTitle
+      searchProductName: searchProductName
     });
   }
 
@@ -71,13 +71,13 @@ export default class TutorialsList extends Component {
       });
   }
 
-  searchTitle() {
+  searchProductName() {
     this.setState({
       currentTutorial: null,
       currentIndex: -1
     });
 
-    TutorialDataService.findByTitle(this.state.searchTitle)
+    TutorialDataService.findByTitle(this.state.searchProductName)
       .then(response => {
         this.setState({
           tutorials: response.data
@@ -90,7 +90,7 @@ export default class TutorialsList extends Component {
   }
 
   render() {
-    const { searchTitle, tutorials, currentTutorial, currentIndex } = this.state;
+    const { searchProductName, tutorials, currentTutorial, currentIndex } = this.state;
 
     return (
       <div className="list row">
@@ -100,14 +100,14 @@ export default class TutorialsList extends Component {
               type="text"
               className="form-control"
               placeholder="Search by title"
-              value={searchTitle}
-              onChange={this.onChangeSearchTitle}
+              value={searchProductName}
+              onChange={this.onChangeSearchProductName}
             />
             <div className="input-group-append">
               <button
                 className="btn btn-outline-secondary"
                 type="button"
-                onClick={this.searchTitle}
+                onClick={this.searchProductName}
               >
                 Search
               </button>
@@ -128,7 +128,7 @@ export default class TutorialsList extends Component {
                   onClick={() => this.setActiveTutorial(tutorial, index)}
                   key={index}
                 >
-                  {tutorial.title}
+                  {tutorial.productName}
                 </li>
               ))}
           </ul>
@@ -146,9 +146,9 @@ export default class TutorialsList extends Component {
               <h4>Tutorial</h4>
               <div>
                 <label>
-                  <strong>Title:</strong>
+                  <strong>Product Name:</strong>
                 </label>{" "}
-                {currentTutorial.title}
+                {currentTutorial.productName}
               </div>
               <div>
                 <label>

@@ -4,8 +4,12 @@ import TutorialDataService from "../services/tutorial.service";
 export default class Tutorial extends Component {
   constructor(props) {
     super(props);
-    this.onChangeTitle = this.onChangeTitle.bind(this);
+    this.onChangeProductName = this.onChangeProductName.bind(this);
     this.onChangeDescription = this.onChangeDescription.bind(this);
+    this.onChangeProductColors = this.onChangeProductColors.bind(this);
+    this.onChangeProductPrice = this.onChangeProductPrice.bind(this);
+    this.onChangeProductBrand = this.onChangeProductBrand.bind(this);
+    this.onChangeProductImagePath = this.onChangeProductImagePath.bind(this);
     this.getTutorial = this.getTutorial.bind(this);
     this.updatePublished = this.updatePublished.bind(this);
     this.updateTutorial = this.updateTutorial.bind(this);
@@ -14,9 +18,13 @@ export default class Tutorial extends Component {
     this.state = {
       currentTutorial: {
         id: null,
-        title: "",
+        productName: "",
         description: "",
-        published: false
+        productColors: "",
+        productPrice: 0, 
+        productBrand: "",
+        productImagePath: "",
+        published: false,
       },
       message: ""
     };
@@ -26,14 +34,14 @@ export default class Tutorial extends Component {
     this.getTutorial(this.props.match.params.id);
   }
 
-  onChangeTitle(e) {
-    const title = e.target.value;
+  onChangeProductName(e) {
+    const name = e.target.value;
 
     this.setState(function(prevState) {
       return {
         currentTutorial: {
           ...prevState.currentTutorial,
-          title: title
+          productName: name
         }
       };
     });
@@ -46,6 +54,50 @@ export default class Tutorial extends Component {
       currentTutorial: {
         ...prevState.currentTutorial,
         description: description
+      }
+    }));
+  }
+
+  onChangeProductColors(e) {
+    const colors = e.target.value;
+    
+    this.setState(prevState => ({
+      currentTutorial: {
+        ...prevState.currentTutorial,
+        productColors: colors
+      }
+    }));
+  }
+
+  onChangeProductPrice(e) {
+    const price = e.target.value;
+    
+    this.setState(prevState => ({
+      currentTutorial: {
+        ...prevState.currentTutorial,
+        productPrice: price
+      }
+    }));
+  }
+
+  onChangeProductBrand(e) {
+    const brand = e.target.value;
+    
+    this.setState(prevState => ({
+      currentTutorial: {
+        ...prevState.currentTutorial,
+        productBrand: brand
+      }
+    }));
+  }
+
+  onChangeProductImagePath(e) {
+    const imagePath = e.target.value;
+    
+    this.setState(prevState => ({
+      currentTutorial: {
+        ...prevState.currentTutorial,
+        productImagePath: imagePath
       }
     }));
   }
@@ -120,16 +172,16 @@ export default class Tutorial extends Component {
       <div>
         {currentTutorial ? (
           <div className="edit-form">
-            <h4>Tutorial</h4>
+            <h4>Product Detail</h4>
             <form>
               <div className="form-group">
-                <label htmlFor="title">Title</label>
+                <label htmlFor="title">Product Name</label>
                 <input
                   type="text"
                   className="form-control"
-                  id="title"
-                  value={currentTutorial.title}
-                  onChange={this.onChangeTitle}
+                  id="Product Name"
+                  value={currentTutorial.productName}
+                  onChange={this.onChangeProductName}
                 />
               </div>
               <div className="form-group">
@@ -140,6 +192,50 @@ export default class Tutorial extends Component {
                   id="description"
                   value={currentTutorial.description}
                   onChange={this.onChangeDescription}
+                />
+              </div>
+
+              <div className="form-group">
+                <label htmlFor="price"> Price</label>
+                <input
+                  type="text"
+                  className="form-control"
+                  id="price"
+                  value={currentTutorial.productPrice}
+                  onChange={this.onChangeProductPrice}
+                />
+              </div>
+
+              <div className="form-group">
+                <label htmlFor="colors"> Colors</label>
+                <input
+                  type="text"
+                  className="form-control"
+                  id="colors"
+                  value={currentTutorial.productColors}
+                  onChange={this.onChangeProductColors}
+                />
+              </div>
+
+              <div className="form-group">
+                <label htmlFor="brand"> Brand</label>
+                <input
+                  type="text"
+                  className="form-control"
+                  id="brand"
+                  value={currentTutorial.productBrand}
+                  onChange={this.onChangeProductBrand}
+                />
+              </div>
+
+              <div className="form-group">
+                <label htmlFor="imagepath"> ImagePath</label>
+                <input
+                  type="text"
+                  className="form-control"
+                  id="imagepath"
+                  value={currentTutorial.productImagePath}
+                  onChange={this.onChangeProductImagePath}
                 />
               </div>
 
