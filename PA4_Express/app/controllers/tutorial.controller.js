@@ -44,7 +44,19 @@ exports.findAll = (req, res) => {
 
   Tutorial.findAll({ where: condition })
     .then(data => {
-      res.send(data);
+      if (data.length != 0){
+        res.send(data);
+      }else{
+        condition = name ? {productPrice: {[Op.like]: `%${name}%` } } : null;
+        Tutorial.findAll({ where : condition})
+        .then(data => {res.send(data)})
+        .catch(err => {
+          res.status(500).send({
+            message:
+              err.message || "Some error occurred while retrieving tutorials."
+          });
+        });
+      }
     })
     .catch(err => {
       res.status(500).send({
@@ -53,6 +65,7 @@ exports.findAll = (req, res) => {
       });
     });
 };
+
 
 // Find a single Tutorial with an id
 exports.findOne = (req, res) => {

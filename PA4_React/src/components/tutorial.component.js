@@ -179,7 +179,7 @@ export default class Tutorial extends Component {
                 <input
                   type="text"
                   className="form-control"
-                  id="Product Name"
+                  id="productName"
                   value={currentTutorial.productName}
                   onChange={this.onChangeProductName}
                 />
