@@ -158,6 +158,24 @@ export default class TutorialsList extends Component {
               </div>
               <div>
                 <label>
+                  <strong>Product Colors:</strong>
+                </label>{" "}
+                {currentTutorial.productColors}
+              </div>
+              <div>
+                <label>
+                  <strong>Product Price:</strong>
+                </label>{" "}
+                {currentTutorial.productPrice}
+              </div>
+              <div>
+                <label>
+                  <strong>Product Brand:</strong>
+                </label>{" "}
+                {currentTutorial.productBrand}
+              </div>
+              <div>
+                <label>
                   <strong>Status:</strong>
                 </label>{" "}
                 {currentTutorial.published ? "Published" : "Pending"}
